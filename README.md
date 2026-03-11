@@ -2,6 +2,8 @@
 
 Turn a diagram screenshot into a downloadable `.excalidraw` file from a local web app or a GitHub Pages site.
 
+Live app: [i2e.riera.co.uk](http://i2e.riera.co.uk/)
+
 The app now runs as a static site. It can be hosted on GitHub Pages, asks for an OpenAI-compatible vision API key directly in the browser when AI extraction is needed, and converts the result into:
 
 - a downloadable `.excalidraw` file
@@ -42,6 +44,8 @@ If the uploaded file is an SVG, `Auto` mode will try a local conversion first an
 ## GitHub Pages
 
 This repo can now be deployed as a static GitHub Pages site.
+
+Current custom domain: [i2e.riera.co.uk](http://i2e.riera.co.uk/)
 
 1. Push the repo to GitHub.
 2. In repository settings, set Pages to use GitHub Actions as the source.

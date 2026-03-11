@@ -44,6 +44,29 @@ input {
   padding: 18px 6px 28px;
 }
 
+.hero-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.ghost-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(124, 45, 18, 0.18);
+  border-radius: 999px;
+  padding: 10px 14px;
+  color: var(--accent-dark);
+  background: rgba(255, 255, 255, 0.78);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.ghost-link:hover {
+  background: rgba(255, 255, 255, 0.94);
+}
+
 .eyebrow {
   margin: 0 0 10px;
   color: var(--accent-dark);
@@ -67,6 +90,16 @@ input {
   color: var(--muted);
   font-size: 1.05rem;
   line-height: 1.65;
+}
+
+.hero-meta {
+  margin: 16px 0 0;
+  color: var(--muted);
+}
+
+.hero-meta a {
+  color: var(--accent-dark);
+  font-weight: 700;
 }
 
 .workspace {

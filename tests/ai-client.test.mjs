@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 
-import { extractJsonObject } from "../lib/ai-client.mjs";
+import { buildUserPrompt, extractJsonObject } from "../lib/ai-client.mjs";
 
 test("extractJsonObject strips code fences and trailing text", () => {
   const response = [
@@ -21,4 +21,18 @@ test("extractJsonObject strips code fences and trailing text", () => {
 
 test("extractJsonObject throws when no object exists", () => {
   assert.throws(() => extractJsonObject("not json"), /did not contain a JSON object/);
+});
+
+test("buildUserPrompt adds structured quality rules", () => {
+  const prompt = buildUserPrompt("", "structured");
+
+  assert.match(prompt, /First plan the full layout before writing the JSON/);
+  assert.match(prompt, /Use a grid-like layout with even spacing/);
+});
+
+test("buildUserPrompt keeps balanced mode lighter", () => {
+  const prompt = buildUserPrompt("", "balanced");
+
+  assert.doesNotMatch(prompt, /First plan the full layout before writing the JSON/);
+  assert.match(prompt, /Avoid overlapping nodes or floating connectors/);
 });

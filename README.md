@@ -36,10 +36,12 @@ npm start
 3. Open [http://localhost:3000](http://localhost:3000)
 4. Upload a diagram image.
 5. Paste a vision-capable API key.
-6. Pick a model.
-7. Generate and download the resulting `.excalidraw` file.
+6. Pick a `Diagram quality` preset.
+7. Pick a model.
+8. Generate and download the resulting `.excalidraw` file.
 
 If the uploaded file is an SVG, `Auto` mode will try a local conversion first and may not need an API key at all.
+`Structured` gives cleaner spacing and exports bound connectors so arrows stay attached when supported nodes move in Excalidraw.
 
 ## GitHub Pages
 

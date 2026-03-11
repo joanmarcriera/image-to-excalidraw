@@ -1,6 +1,7 @@
 import { extractSceneFromSvg } from "./svg-scene.js";
 import { requestDiagramSpec } from "./lib/ai-client.mjs";
 import { createExcalidrawFile } from "./lib/excalidraw.mjs";
+import { refineScene } from "./lib/scene-refiner.mjs";
 import { normalizeScene } from "./lib/scene-schema.mjs";
 import { renderSceneSvg } from "./lib/svg-preview.mjs";
 
@@ -25,6 +26,7 @@ const providerPresets = {
 const fileInput = document.querySelector("#file-input");
 const loadExampleButton = document.querySelector("#load-example");
 const modeSelect = document.querySelector("#mode-select");
+const qualityPresetSelect = document.querySelector("#quality-preset-select");
 const providerSelect = document.querySelector("#provider-select");
 const modelInput = document.querySelector("#model-input");
 const baseUrlInput = document.querySelector("#base-url-input");
@@ -49,6 +51,10 @@ function assetUrl(relativePath) {
 
 function currentMode() {
   return modeSelect.value;
+}
+
+function currentQualityPreset() {
+  return qualityPresetSelect.value;
 }
 
 function setStatus(text, className = "") {
@@ -295,9 +301,11 @@ async function handleGenerate(event) {
     if (canUseDirectSvg) {
       try {
         requestPayload = {
-          scene: extractSceneFromSvg(
-            state.currentImage.svgText,
-            state.currentImage.name,
+          scene: normalizeScene(
+            extractSceneFromSvg(
+              state.currentImage.svgText,
+              state.currentImage.name,
+            ),
           ),
         };
       } catch (error) {
@@ -325,6 +333,7 @@ async function handleGenerate(event) {
         baseUrl: baseUrlInput.value.trim(),
         model: modelInput.value.trim(),
         apiKey: apiKeyInput.value.trim(),
+        qualityPreset: currentQualityPreset(),
         userNotes: notesInput.value.trim(),
         imageDataUrl: state.currentImage.dataUrl,
         refererUrl: projectOrigin(),
@@ -336,10 +345,15 @@ async function handleGenerate(event) {
       };
     }
 
+    const refinedScene = refineScene(requestPayload.scene, {
+      qualityPreset: currentQualityPreset(),
+    });
     state.latestResult = {
-      scene: requestPayload.scene,
-      excalidrawFile: createExcalidrawFile(requestPayload.scene),
-      previewSvg: renderSceneSvg(requestPayload.scene),
+      scene: refinedScene,
+      excalidrawFile: createExcalidrawFile(refinedScene, {
+        attachConnectors: true,
+      }),
+      previewSvg: renderSceneSvg(refinedScene),
     };
     renderResult();
     setStatus("Ready", "success");

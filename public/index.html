@@ -45,13 +45,21 @@
               <p>No image selected yet.</p>
             </div>
 
-            <div class="field-grid">
+            <div class="field-grid field-grid-triple">
               <label class="field">
                 <span>Conversion mode</span>
                 <select id="mode-select">
                   <option value="auto">Auto</option>
                   <option value="ai">Vision AI</option>
                   <option value="svg">Direct SVG</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Diagram quality</span>
+                <select id="quality-preset-select">
+                  <option value="structured" selected>Structured</option>
+                  <option value="balanced">Balanced</option>
                 </select>
               </label>
 
@@ -86,10 +94,11 @@
 
             <label class="field">
               <span>Extra guidance (optional)</span>
+              <small class="field-help">Use this for semantic hints like naming, scope, or what to ignore. Layout is controlled by the quality preset.</small>
               <textarea
                 id="notes-input"
                 rows="4"
-                placeholder="Example: focus on the swimlanes, ignore the sticky notes, keep the labels short."
+                placeholder="Example: this is a deployment diagram, keep service names exact, ignore handwritten comments."
               ></textarea>
             </label>
 

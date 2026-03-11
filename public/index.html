@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image to Excalidraw</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Local Diagram Extractor</p>
+        <h1>Turn a diagram screenshot into an Excalidraw file.</h1>
+        <p class="hero-copy">
+          Run this repo locally, upload an image, add your vision API details, and get back a downloadable
+          <code>.excalidraw</code> output plus a browser preview.
+        </p>
+      </header>
+
+      <main class="workspace">
+        <section class="panel control-panel">
+          <div class="panel-heading">
+            <h2>Input</h2>
+            <button id="load-example" class="secondary-button" type="button">Load bundled example</button>
+          </div>
+
+          <form id="generate-form">
+            <label class="field">
+              <span>Diagram image</span>
+              <input id="file-input" type="file" accept="image/*,.svg" />
+            </label>
+
+            <div id="upload-state" class="upload-state">
+              <p>No image selected yet.</p>
+            </div>
+
+            <div class="field-grid">
+              <label class="field">
+                <span>Conversion mode</span>
+                <select id="mode-select">
+                  <option value="auto">Auto</option>
+                  <option value="ai">Vision AI</option>
+                  <option value="svg">Direct SVG</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Provider preset</span>
+                <select id="provider-select">
+                  <option value="openrouter">OpenRouter</option>
+                  <option value="openai">OpenAI</option>
+                  <option value="custom">Custom-compatible</option>
+                </select>
+              </label>
+            </div>
+
+            <div id="ai-settings">
+              <div class="field-grid">
+                <label class="field">
+                  <span>Model</span>
+                  <input id="model-input" type="text" value="openai/gpt-4.1-mini" />
+                </label>
+
+                <label class="field">
+                  <span>Base URL</span>
+                  <input id="base-url-input" type="text" value="https://openrouter.ai/api/v1" />
+                </label>
+              </div>
+
+              <label class="field">
+                <span>API key</span>
+                <input id="api-key-input" type="password" placeholder="Paste a vision-capable key" />
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Extra guidance (optional)</span>
+              <textarea
+                id="notes-input"
+                rows="4"
+                placeholder="Example: focus on the swimlanes, ignore the sticky notes, keep the labels short."
+              ></textarea>
+            </label>
+
+            <div id="mode-callout" class="callout">
+              <strong>Auto mode:</strong> SVG files are converted locally when possible. Raster images go through the vision provider you choose.
+            </div>
+
+            <button id="generate-button" class="primary-button" type="submit">Generate Excalidraw</button>
+          </form>
+        </section>
+
+        <section class="panel output-panel">
+          <div class="panel-heading">
+            <h2>Output</h2>
+            <span id="status-pill" class="status-pill">Idle</span>
+          </div>
+
+          <div id="result-shell" class="result-shell empty">
+            <p class="empty-copy">
+              Upload an image or load the bundled example, then generate a result.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" role="img" aria-label="Sample review flow">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M 0 0 L 12 6 L 0 12 z" fill="#334155" />
+    </marker>
+  </defs>
+  <rect width="960" height="640" fill="#fffdf8" />
+  <text x="80" y="70" font-family="Trebuchet MS, Verdana, sans-serif" font-size="34" fill="#7c2d12">Example: image review pipeline</text>
+
+  <ellipse cx="180" cy="180" rx="95" ry="55" fill="#ecfeff" stroke="#0f766e" stroke-width="3" />
+  <text x="180" y="188" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#134e4a">Upload image</text>
+
+  <rect x="340" y="125" width="210" height="110" rx="24" fill="#fff7ed" stroke="#c2410c" stroke-width="3" />
+  <text x="445" y="175" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">Extract shapes</text>
+  <text x="445" y="205" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">and labels</text>
+
+  <polygon points="690,125 820,185 690,245 560,185" fill="#fef3c7" stroke="#b45309" stroke-width="3" />
+  <text x="690" y="180" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="22" fill="#78350f">Clean enough?</text>
+
+  <rect x="620" y="360" width="235" height="110" rx="24" fill="#fff7ed" stroke="#c2410c" stroke-width="3" />
+  <text x="738" y="410" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">Generate</text>
+  <text x="738" y="440" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">Excalidraw</text>
+
+  <rect x="260" y="360" width="220" height="110" rx="24" fill="#fff7ed" stroke="#c2410c" stroke-width="3" />
+  <text x="370" y="410" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">Ask for a</text>
+  <text x="370" y="440" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#7c2d12">cleaner source</text>
+
+  <ellipse cx="738" cy="560" rx="95" ry="55" fill="#ecfeff" stroke="#0f766e" stroke-width="3" />
+  <text x="738" y="568" text-anchor="middle" font-family="Trebuchet MS, Verdana, sans-serif" font-size="24" fill="#134e4a">Done</text>
+
+  <line x1="276" y1="180" x2="340" y2="180" stroke="#334155" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="550" y1="180" x2="560" y2="180" stroke="#334155" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="690" y1="245" x2="690" y2="360" stroke="#334155" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="622" y1="214" x2="430" y2="360" stroke="#334155" stroke-width="3" marker-end="url(#arrow)" />
+  <line x1="738" y1="470" x2="738" y2="505" stroke="#334155" stroke-width="3" marker-end="url(#arrow)" />
+
+  <text x="715" y="315" font-family="Trebuchet MS, Verdana, sans-serif" font-size="18" fill="#475569">Yes</text>
+  <text x="520" y="318" font-family="Trebuchet MS, Verdana, sans-serif" font-size="18" fill="#475569">No</text>
+</svg>

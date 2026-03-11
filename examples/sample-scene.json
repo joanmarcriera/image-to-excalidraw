@@ -1,0 +1,94 @@
+{
+  "title": "Example: image review pipeline",
+  "summary": "A simple diagram showing image upload, extraction, cleanup review, and Excalidraw generation.",
+  "width": 1110,
+  "height": 970,
+  "nodes": [
+    {
+      "id": "upload-image",
+      "shape": "ellipse",
+      "label": "Upload image",
+      "x": 180,
+      "y": 180,
+      "width": 220,
+      "height": 110
+    },
+    {
+      "id": "extract-shapes",
+      "shape": "rectangle",
+      "label": "Extract shapes\nand labels",
+      "x": 420,
+      "y": 150,
+      "width": 250,
+      "height": 120
+    },
+    {
+      "id": "clean-enough",
+      "shape": "diamond",
+      "label": "Clean enough?",
+      "x": 720,
+      "y": 150,
+      "width": 260,
+      "height": 150
+    },
+    {
+      "id": "cleaner-source",
+      "shape": "rectangle",
+      "label": "Ask for a\ncleaner source",
+      "x": 320,
+      "y": 480,
+      "width": 250,
+      "height": 120
+    },
+    {
+      "id": "generate-excalidraw",
+      "shape": "rectangle",
+      "label": "Generate\nExcalidraw",
+      "x": 720,
+      "y": 480,
+      "width": 250,
+      "height": 120
+    },
+    {
+      "id": "done",
+      "shape": "ellipse",
+      "label": "Done",
+      "x": 760,
+      "y": 720,
+      "width": 180,
+      "height": 100
+    }
+  ],
+  "connectors": [
+    {
+      "from": "upload-image",
+      "to": "extract-shapes",
+      "kind": "arrow",
+      "label": ""
+    },
+    {
+      "from": "extract-shapes",
+      "to": "clean-enough",
+      "kind": "arrow",
+      "label": ""
+    },
+    {
+      "from": "clean-enough",
+      "to": "generate-excalidraw",
+      "kind": "arrow",
+      "label": "Yes"
+    },
+    {
+      "from": "clean-enough",
+      "to": "cleaner-source",
+      "kind": "arrow",
+      "label": "No"
+    },
+    {
+      "from": "generate-excalidraw",
+      "to": "done",
+      "kind": "arrow",
+      "label": ""
+    }
+  ]
+}

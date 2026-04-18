@@ -1,130 +1,245 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image to Excalidraw</title>
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <div class="page-shell">
-      <header class="hero">
-        <div class="hero-links">
-          <a class="ghost-link" href="https://github.com/joanmarcriera/image-to-excalidraw" target="_blank" rel="noreferrer">
-            View Source on GitHub
-          </a>
-          <a class="ghost-link" href="http://i2e.riera.co.uk/" target="_blank" rel="noreferrer">
-            Open Live Site
-          </a>
-        </div>
-        <p class="eyebrow">Local Diagram Extractor</p>
-        <h1>Turn a diagram screenshot into an Excalidraw file.</h1>
-        <p class="hero-copy">
-          Run this repo locally, upload an image, add your vision API details, and get back a downloadable
-          <code>.excalidraw</code> output plus a browser preview.
-        </p>
-        <p class="hero-meta">
-          Source: <a href="https://github.com/joanmarcriera/image-to-excalidraw" target="_blank" rel="noreferrer">github.com/joanmarcriera/image-to-excalidraw</a>
-        </p>
-      </header>
+<!DOCTYPE html>
+<html lang="en-GB" data-site="i2e">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Image to Excalidraw — turn a diagram screenshot into an editable Excalidraw scene. Local-first, bring-your-own vision key.">
+    <meta name="theme-color" content="#1f2436">
+    <link rel="canonical" href="https://i2e.riera.co.uk/">
+    <meta property="og:title" content="Image to Excalidraw — Screenshot to editable scene">
+    <meta property="og:description" content="Upload a diagram, add a vision key, download an Excalidraw file.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://i2e.riera.co.uk/">
+    <title>Image to Excalidraw — Screenshot to Editable Scene</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;450;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
 
-      <main class="workspace">
-        <section class="panel control-panel">
-          <div class="panel-heading">
-            <h2>Input</h2>
-            <button id="load-example" class="secondary-button" type="button">Load bundled example</button>
-          </div>
-
-          <form id="generate-form">
-            <label class="field">
-              <span>Diagram image</span>
-              <input id="file-input" type="file" accept="image/*,.svg" />
-            </label>
-
-            <div id="upload-state" class="upload-state">
-              <p>No image selected yet.</p>
-            </div>
-
-            <div class="field-grid field-grid-triple">
-              <label class="field">
-                <span>Conversion mode</span>
-                <select id="mode-select">
-                  <option value="auto">Auto</option>
-                  <option value="ai">Vision AI</option>
-                  <option value="svg">Direct SVG</option>
-                </select>
-              </label>
-
-              <label class="field">
-                <span>Diagram quality</span>
-                <select id="quality-preset-select">
-                  <option value="structured" selected>Structured</option>
-                  <option value="balanced">Balanced</option>
-                </select>
-              </label>
-
-              <label class="field">
-                <span>Provider preset</span>
-                <select id="provider-select">
-                  <option value="openrouter">OpenRouter</option>
-                  <option value="openai">OpenAI</option>
-                  <option value="custom">Custom-compatible</option>
-                </select>
-              </label>
-            </div>
-
-            <div id="ai-settings">
-              <div class="field-grid">
-                <label class="field">
-                  <span>Model</span>
-                  <input id="model-input" type="text" value="openai/gpt-4.1-mini" />
-                </label>
-
-                <label class="field">
-                  <span>Base URL</span>
-                  <input id="base-url-input" type="text" value="https://openrouter.ai/api/v1" />
-                </label>
-              </div>
-
-              <label class="field">
-                <span>API key</span>
-                <input id="api-key-input" type="password" placeholder="Paste a vision-capable key" />
-              </label>
-            </div>
-
-            <label class="field">
-              <span>Extra guidance (optional)</span>
-              <small class="field-help">Use this for semantic hints like naming, scope, or what to ignore. Layout is controlled by the quality preset.</small>
-              <textarea
-                id="notes-input"
-                rows="4"
-                placeholder="Example: this is a deployment diagram, keep service names exact, ignore handwritten comments."
-              ></textarea>
-            </label>
-
-            <div id="mode-callout" class="callout">
-              <strong>Auto mode:</strong> SVG files are converted locally when possible. Raster images go through the vision provider you choose.
-            </div>
-
-            <button id="generate-button" class="primary-button" type="submit">Generate Excalidraw</button>
-          </form>
-        </section>
-
-        <section class="panel output-panel">
-          <div class="panel-heading">
-            <h2>Output</h2>
-            <span id="status-pill" class="status-pill">Idle</span>
-          </div>
-
-          <div id="result-shell" class="result-shell empty">
-            <p class="empty-copy">
-              Upload an image or load the bundled example, then generate a result.
-            </p>
-          </div>
-        </section>
-      </main>
+<header class="chrome-top">
+    <div class="inner">
+        <a class="brand" href="https://riera.co.uk/">
+            <span class="mark">JR</span>
+            <span>i2e.riera.co.uk</span>
+            <span class="sub">/ tool</span>
+        </a>
+        <nav class="chrome-nav">
+            <a href="#input">Input</a>
+            <a href="#output">Output</a>
+            <a href="#notes">Notes</a>
+            <a href="https://github.com/joanmarcriera/image-to-excalidraw" target="_blank" rel="noreferrer">Source</a>
+        </nav>
+        <button class="switch-btn" id="switcher-open" aria-label="Open site index">
+            <span>Index</span>
+            <span class="kbd">⌘K</span>
+        </button>
     </div>
+</header>
 
-    <script type="module" src="./app.js"></script>
-  </body>
+<div class="switcher" id="switcher" role="dialog" aria-modal="true" aria-label="Portfolio site index">
+    <div class="switcher-card">
+        <div class="switcher-head">
+            <span class="title">Portfolio index — jump to site</span>
+            <button class="close" id="switcher-close" aria-label="Close">Esc</button>
+        </div>
+        <div class="switcher-list" id="switcher-list"></div>
+    </div>
+</div>
+
+<main>
+
+    <section class="sub-hero">
+        <div class="container">
+            <div class="sub-head-grid">
+                <span class="label">i2e.riera.co.uk</span>
+                <h1>A diagram screenshot becomes an editable Excalidraw scene.</h1>
+            </div>
+            <div class="meta-grid">
+                <span class="label">Tool</span>
+                <p class="deck">Upload the image, pick a conversion mode, paste a vision-capable key, get back a downloadable <code>.excalidraw</code> file and a preview. Runs locally; your key stays in the browser.</p>
+                <div class="signal-list">
+                    <div class="signal-row"><span class="k">Input</span><span>PNG · JPG · SVG</span></div>
+                    <div class="signal-row"><span class="k">Output</span><span>.excalidraw · preview</span></div>
+                    <div class="signal-row"><span class="k">Providers</span><span>OpenRouter · OpenAI · custom</span></div>
+                    <div class="signal-row"><span class="k">Source</span><span><a href="https://github.com/joanmarcriera/image-to-excalidraw" target="_blank" rel="noreferrer" style="border-bottom: 1px solid var(--line-2); color: var(--ink);">github.com/joanmarcriera/image-to-excalidraw →</a></span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="input">
+        <div class="container">
+            <div class="sec-head">
+                <span class="label">§ 01 · Input</span>
+                <h2 class="sec-title">Upload, describe, generate.</h2>
+            </div>
+            <div class="tool-panel">
+                <div class="tool-panel-head">
+                    <span class="label">Diagram source</span>
+                    <button id="load-example" class="tool-btn-secondary" type="button">Load bundled example</button>
+                </div>
+
+                <form id="generate-form" class="tool-form">
+                    <label class="tool-field">
+                        <span class="tool-field-label">Diagram image</span>
+                        <input id="file-input" type="file" accept="image/*,.svg" />
+                    </label>
+
+                    <div id="upload-state" class="upload-state">
+                        <p>No image selected yet.</p>
+                    </div>
+
+                    <div class="tool-field-row">
+                        <label class="tool-field">
+                            <span class="tool-field-label">Conversion mode</span>
+                            <select id="mode-select">
+                                <option value="auto">Auto</option>
+                                <option value="ai">Vision AI</option>
+                                <option value="svg">Direct SVG</option>
+                            </select>
+                        </label>
+
+                        <label class="tool-field">
+                            <span class="tool-field-label">Diagram quality</span>
+                            <select id="quality-preset-select">
+                                <option value="structured" selected>Structured</option>
+                                <option value="balanced">Balanced</option>
+                            </select>
+                        </label>
+
+                        <label class="tool-field">
+                            <span class="tool-field-label">Provider preset</span>
+                            <select id="provider-select">
+                                <option value="openrouter">OpenRouter</option>
+                                <option value="openai">OpenAI</option>
+                                <option value="custom">Custom-compatible</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div id="ai-settings" class="tool-subgroup">
+                        <div class="tool-field-row tool-field-row-2">
+                            <label class="tool-field">
+                                <span class="tool-field-label">Model</span>
+                                <input id="model-input" type="text" value="openai/gpt-4.1-mini" />
+                            </label>
+
+                            <label class="tool-field">
+                                <span class="tool-field-label">Base URL</span>
+                                <input id="base-url-input" type="text" value="https://openrouter.ai/api/v1" />
+                            </label>
+                        </div>
+
+                        <label class="tool-field">
+                            <span class="tool-field-label">API key</span>
+                            <input id="api-key-input" type="password" placeholder="Paste a vision-capable key" />
+                        </label>
+                    </div>
+
+                    <label class="tool-field">
+                        <span class="tool-field-label">Extra guidance <span class="tool-field-hint">optional</span></span>
+                        <small class="tool-field-help">Semantic hints only — naming, scope, what to ignore. Layout is controlled by the quality preset.</small>
+                        <textarea
+                            id="notes-input"
+                            rows="4"
+                            placeholder="Example: this is a deployment diagram, keep service names exact, ignore handwritten comments."
+                        ></textarea>
+                    </label>
+
+                    <div id="mode-callout" class="tool-callout">
+                        <strong>Auto mode.</strong> SVG files are converted locally when possible. Raster images go through the vision provider you choose.
+                    </div>
+
+                    <button id="generate-button" class="tool-btn-primary" type="submit">Generate Excalidraw</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="output">
+        <div class="container">
+            <div class="sec-head">
+                <span class="label">§ 02 · Output</span>
+                <h2 class="sec-title">Preview, download, iterate.</h2>
+            </div>
+            <div class="tool-panel">
+                <div class="tool-panel-head">
+                    <span class="label">Result</span>
+                    <span id="status-pill" class="status-pill">Idle</span>
+                </div>
+                <div id="result-shell" class="result-shell empty">
+                    <p class="empty-copy">Upload an image or load the bundled example, then generate a result.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="notes">
+        <div class="container">
+            <div class="sec-head">
+                <span class="label">§ 03 · Notes</span>
+                <h2 class="sec-title">What the tool is, and is not.</h2>
+            </div>
+            <div class="kbd-grid">
+                <div class="kbd-card"><code>local-first</code><p>The extraction runs locally. Your key and your image stay in the browser session; nothing is proxied through a server you do not control.</p></div>
+                <div class="kbd-card"><code>byo-key</code><p>Bring a vision-capable key from OpenRouter, OpenAI, or any OpenAI-compatible endpoint. Stored only in your browser.</p></div>
+                <div class="kbd-card"><code>modes</code><p>Auto picks SVG conversion when it can and falls back to the vision provider otherwise. AI forces vision; SVG forces direct conversion.</p></div>
+                <div class="kbd-card"><code>quality</code><p>Structured favours legibility; Balanced favours fidelity to the source. Both emit editable Excalidraw scenes.</p></div>
+                <div class="kbd-card"><code>output</code><p>A downloadable <code>.excalidraw</code> file plus an in-browser preview. Re-generate as many times as the key allows.</p></div>
+                <div class="kbd-card"><code>source</code><p>MIT-licensed. Clone the repo, run it under Docker or Node, or self-host on your own infrastructure.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container inner">
+            <span class="label">§ 04 · Contact</span>
+            <h2>Bug reports, model recommendations, or a bespoke integration.</h2>
+            <div class="contact-links">
+                <a class="contact-link" href="https://github.com/joanmarcriera/image-to-excalidraw" target="_blank" rel="noreferrer">
+                    <span class="k">GitHub</span>
+                    <span class="v">joanmarcriera/image-to-excalidraw</span>
+                    <span class="a">→</span>
+                </a>
+                <a class="contact-link" href="mailto:joanmarcriera@gmail.com?subject=Image%20to%20Excalidraw">
+                    <span class="k">Email</span>
+                    <span class="v">joanmarcriera@gmail.com</span>
+                    <span class="a">→</span>
+                </a>
+                <a class="contact-link" href="https://riera.co.uk/">
+                    <span class="k">Portfolio</span>
+                    <span class="v">riera.co.uk</span>
+                    <span class="a">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="chrome-footer">
+    <div class="inner">
+        <div class="foot-brand">
+            <span class="label">Colophon</span>
+            <span class="line">Joan Marc Riera Duocastella</span>
+            <span>Cambridgeshire, United Kingdom</span>
+            <span>BCS, the Chartered Institute for IT</span>
+            <span class="stamp">© 2026 · All rights reserved</span>
+        </div>
+        <div>
+            <div class="foot-family-label">Family of sites — jump anywhere</div>
+            <div class="foot-grid" id="foot-grid"></div>
+            <div class="foot-bottom">
+                <span>i2e.riera.co.uk / tool</span>
+                <span class="mono">Press <strong>⌘K</strong> to open the index from any page</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="./chrome.js"></script>
+<script type="module" src="./app.js"></script>
+</body>
 </html>

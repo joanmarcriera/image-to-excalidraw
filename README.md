@@ -1,5 +1,7 @@
 # image-to-excalidraw
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Turn a diagram screenshot into a downloadable `.excalidraw` file from a local web app or a GitHub Pages site.
 
 Live app: [i2e.riera.co.uk](http://i2e.riera.co.uk/)
